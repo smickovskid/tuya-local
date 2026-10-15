@@ -7,21 +7,30 @@ entities:
   - entity: climate
     translation_key: thermostat
     dps:
-      - id: 2
+      - id: 112
         name: hvac_mode
-        type: string
+        type: boolean
         mapping:
-          - dps_val: hot
-            value: heat
-          - dps_val: cold
-            value: cool
+          - dps_val: false
+            value: "off"
+          - dps_val: true
+            constraint: work_mode
+            conditions:
+              - dps_val: hot
+                value: heat
+              - dps_val: cold
+                value: cool
+      - id: 2
+        name: work_mode
+        type: string
+        hidden: true
       - id: 109
         name: hvac_action
         type: string
         mapping:
           - dps_val: heating_on
             value: heating
-            constraint: hvac_mode
+            constraint: work_mode
             conditions:
               - dps_val: cold
                 value: cooling
